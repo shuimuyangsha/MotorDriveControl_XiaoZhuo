@@ -184,6 +184,12 @@ _pkginfo.txt
 !*.[Cc]ache/
 
 # Others
+
+*.o
+*.crf
+*.d
+
+
 ClientBin/
 ~$*
 *~
