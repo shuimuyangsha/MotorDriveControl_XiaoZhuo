@@ -177,7 +177,7 @@ void run_control(void)
 		{
 			buf[UART_DOWN_ID] = 1;						//为1表示左边驱动器
 			buf[UART_DOWN_CMD] = DRIVER_CMD_SPEED;		//速度控制命令
-			buf[UART_DOWN_DATA1] = left_rpm&0xff;
+			buf[UART_DOWN_DATA1] = left_rpm&0xf0;
 			buf[UART_DOWN_DATA2] = (left_rpm>>8)&0xff;
 			
 			buf[UART_DOWN_SUM] = buf[UART_DOWN_ID] + buf[UART_DOWN_CMD] + buf[UART_DOWN_DATA1]+buf[UART_DOWN_DATA2];

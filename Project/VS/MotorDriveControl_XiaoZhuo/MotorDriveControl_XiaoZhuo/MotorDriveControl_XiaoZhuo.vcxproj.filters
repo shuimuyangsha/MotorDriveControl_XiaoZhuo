@@ -179,6 +179,9 @@
     <None Include="..\..\..\..\..\..\..\..\安保机器人\资料\电机&amp;电机驱动\轮毂电机\上海霄卓机器人\驱动器通信说明与列程\驱动器通讯说明.pdf">
       <Filter>Resource files</Filter>
     </None>
+    <None Include="..\..\..\uC_Probe\MotorDriveControl_XiaoZhuo.wspx">
+      <Filter>Resource files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Program Files (x86)\Sysprogs\VisualGDB\builtins_ia32.h">

@@ -49,7 +49,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+int DebugSet_left_rpm = 0;
+int DebugSet_right_rpm = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -115,6 +116,8 @@ int main(void)
 		Computing_dir();//获取遥控器发送的控制方向
 		Computing_speed();//获取遥控器发送的速度值
 		Computing_rpm();//将速度转化成转速
+		left_rpm = DebugSet_left_rpm;
+		right_rpm = DebugSet_right_rpm;
 		run_control();//将转度发送给驱动器
     }
   /* USER CODE END 3 */
