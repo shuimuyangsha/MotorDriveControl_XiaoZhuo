@@ -64,77 +64,163 @@ void com485_rx_data_parse(void)
  ***************************************************************************/
 void com485_uart_pre_isr(void)
 {
-    uint64_t time = sys_time;
-    if(COM485_UART->SR & UART_FLAG_RXNE)  //串口接收中断标志位置位
-    {
-        if(time - com485_uart_buf.rx_time > UART_RX_BYTE_TIMEOUT)
-        {
-            com485_uart_buf.rx_counter =0;
-        }
+	uint64_t time = sys_time;
+	uint8_t data;
 
-        com485_uart_buf.rx_time = time;
+	if (COM485_UART->SR & (UART_FLAG_NE | UART_FLAG_PE | UART_FLAG_FE | UART_FLAG_ORE))    //（噪声错误标志 | 校验错误 | 帧错误 | 过载错误）
+	{   //遇到帧错误等情况时，需要先将数据寄存器的数据读出来，否则无法清除中断标志位
+		com485_uart_buf.dump_data = COM485_UART->SR;
+		COM485_UART->SR = 0;
+		com485_uart_buf.dump_data = COM485_UART->DR;
+		//return;
+	}
 
-        if(com485_uart_buf.rx_counter < UART_UPLINK_DATA_LENGTH)
-        {
-            com485_uart_buf.rx_buf[com485_uart_buf.rx_counter++] = COM485_UART->DR;
-            if(com485_uart_buf.rx_counter == UART_UPLINK_DATA_LENGTH)
-            {
-                if(check_data_ingtegrity(com485_uart_buf.rx_buf, UART_UPLINK_DATA_LENGTH))  //若和校验通过，则反转标志位，以便在主循环debug_task中解析上位机发送的数据
-                {
-                    //com485_uart_buf.rx_data_update_flag ^= 0x01;	//反转标志位
+	if (COM485_UART->SR & UART_FLAG_RXNE)  //串口接收中断标志位置位
+	{
+		if (time - com485_uart_buf.rx_time > UART_RX_BYTE_TIMEOUT)
+		{
+			com485_uart_buf.rx_counter = 0;
+		}
+
+		com485_uart_buf.rx_time = time;
+
+		if (com485_uart_buf.rx_counter < UART_UPLINK_DATA_LENGTH)
+		{
+			data = COM485_UART->DR;
+			com485_uart_buf.rx_buf[com485_uart_buf.rx_counter++] = data;
+			if (com485_uart_buf.rx_counter == 1)//检查第一个收到的数据对应的ID是否为1或者2，若ID不匹配，则重新接收数据
+			{
+				if ((data != 1) && (data != 2))
+				{
+					com485_uart_buf.rx_counter = 0;
+				}
+			}
+			if (com485_uart_buf.rx_counter == UART_UPLINK_DATA_LENGTH)
+			{
+				if (check_data_ingtegrity(com485_uart_buf.rx_buf, UART_UPLINK_DATA_LENGTH))  //若和校验通过，则反转标志位，以便在主循环debug_task中解析上位机发送的数据
+				{
+					//com485_uart_buf.rx_data_update_flag ^= 0x01;	//反转标志位
 					com485_rx_data_parse();//对接收的数据进行解析
-                }
+				}
 
-            }
-        }
-        else
-        {
-            com485_uart_buf.dump_data = COM485_UART->DR;
-        }
+			}
+		}
+		else
+		{
+			com485_uart_buf.dump_data = COM485_UART->DR;
+		}
 
 
-    }
+	}
 	//往数据寄存器写入最后一个字节数据后才使能发送完成中断，故进入发送完成中断时，表示所有数据已经发送完毕，可以关闭485发送功能
-	if(COM485_UART->CR1 & UART_IT_TC)
+	if (COM485_UART->CR1 & UART_IT_TC)
 	{
 		COM485_UART->SR &= (~UART_FLAG_TC);
 		COM485_UART->CR1 &= (~UART_IT_TC);
 		Disable485TX();//
 	}
-	
-    if(COM485_UART->CR1 & UART_IT_TXE)  //串口发送中断标志位置位
-    {
-        if(com485_uart_buf.tx_counter < UART_DOWNLINK_DATA_LENGTH)
-        {
-            if(COM485_UART->SR & UART_FLAG_TXE)
-            {
 
-                COM485_UART->DR = com485_uart_buf.tx_buf[com485_uart_buf.tx_counter++];
+	if (COM485_UART->CR1 & UART_IT_TXE)  //串口发送中断标志位置位
+	{
+		if (com485_uart_buf.tx_counter < UART_DOWNLINK_DATA_LENGTH)
+		{
+			if (COM485_UART->SR & UART_FLAG_TXE)
+			{
 
-            }
-			if(com485_uart_buf.tx_counter == UART_DOWNLINK_DATA_LENGTH)
+				COM485_UART->DR = com485_uart_buf.tx_buf[com485_uart_buf.tx_counter++];
+
+			}
+			if (com485_uart_buf.tx_counter == UART_DOWNLINK_DATA_LENGTH)
 			{
 				COM485_UART->CR1 &= (~UART_IT_TXE);
-				if(!sync_control_flag)
+				if (!sync_control_flag)
 				{
 					COM485_UART->SR &= (~UART_FLAG_TC);
 					//发送所有数据后，要使能发送完成中断，等待所有数据发送完成了才能关闭485发送功能，否则会导致最后一个字节的数据发送不完整
 					COM485_UART->CR1 |= (UART_IT_TC);
 				}
-				
+
 			}
-        }
+		}
 
-    }
-	
-	
-    if(COM485_UART->SR & (UART_FLAG_NE |UART_FLAG_PE |UART_FLAG_FE | UART_FLAG_ORE))    //（噪声错误标志 | 校验错误 | 帧错误 | 过载错误）
-    {   //遇到帧错误等情况时，需要先将数据寄存器的数据读出来，否则无法清除中断标志位
-        com485_uart_buf.dump_data = COM485_UART->SR;
-        com485_uart_buf.dump_data = COM485_UART->DR;
-    }
-
+	}
 }
+
+//void com485_uart_pre_isr(void)
+//{
+//    uint64_t time = sys_time;
+//    if(COM485_UART->SR & UART_FLAG_RXNE)  //串口接收中断标志位置位
+//    {
+//        if(time - com485_uart_buf.rx_time > UART_RX_BYTE_TIMEOUT)
+//        {
+//            com485_uart_buf.rx_counter =0;
+//        }
+//
+//        com485_uart_buf.rx_time = time;
+//
+//        if(com485_uart_buf.rx_counter < UART_UPLINK_DATA_LENGTH)
+//        {
+//            com485_uart_buf.rx_buf[com485_uart_buf.rx_counter++] = COM485_UART->DR;
+//            if(com485_uart_buf.rx_counter == UART_UPLINK_DATA_LENGTH)
+//            {
+//                if(check_data_ingtegrity(com485_uart_buf.rx_buf, UART_UPLINK_DATA_LENGTH))  //若和校验通过，则反转标志位，以便在主循环debug_task中解析上位机发送的数据
+//                {
+//                    //com485_uart_buf.rx_data_update_flag ^= 0x01;	//反转标志位
+//					com485_rx_data_parse();//对接收的数据进行解析
+//                }
+//
+//            }
+//        }
+//        else
+//        {
+//            com485_uart_buf.dump_data = COM485_UART->DR;
+//        }
+//
+//
+//    }
+//	//往数据寄存器写入最后一个字节数据后才使能发送完成中断，故进入发送完成中断时，表示所有数据已经发送完毕，可以关闭485发送功能
+//	if(COM485_UART->CR1 & UART_IT_TC)
+//	{
+//		COM485_UART->SR &= (~UART_FLAG_TC);
+//		COM485_UART->CR1 &= (~UART_IT_TC);
+//		Disable485TX();//
+//	}
+//	
+//    if(COM485_UART->CR1 & UART_IT_TXE)  //串口发送中断标志位置位
+//    {
+//        if(com485_uart_buf.tx_counter < UART_DOWNLINK_DATA_LENGTH)
+//        {
+//            if(COM485_UART->SR & UART_FLAG_TXE)
+//            {
+//
+//                COM485_UART->DR = com485_uart_buf.tx_buf[com485_uart_buf.tx_counter++];
+//
+//            }
+//			if(com485_uart_buf.tx_counter == UART_DOWNLINK_DATA_LENGTH)
+//			{
+//				COM485_UART->CR1 &= (~UART_IT_TXE);
+//				if(!sync_control_flag)
+//				{
+//					COM485_UART->SR &= (~UART_FLAG_TC);
+//					//发送所有数据后，要使能发送完成中断，等待所有数据发送完成了才能关闭485发送功能，否则会导致最后一个字节的数据发送不完整
+//					COM485_UART->CR1 |= (UART_IT_TC);
+//				}
+//				
+//			}
+//        }
+//
+//    }
+//	
+//	
+//    if(COM485_UART->SR & (UART_FLAG_NE |UART_FLAG_PE |UART_FLAG_FE | UART_FLAG_ORE))    //（噪声错误标志 | 校验错误 | 帧错误 | 过载错误）
+//    {   //遇到帧错误等情况时，需要先将数据寄存器的数据读出来，否则无法清除中断标志位
+//        com485_uart_buf.dump_data = COM485_UART->SR;
+//        com485_uart_buf.dump_data = COM485_UART->DR;
+//    }
+//
+//}
+
+
 
 /****************************************************************************
  *

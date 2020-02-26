@@ -182,6 +182,9 @@
     <None Include="..\..\..\uC_Probe\MotorDriveControl_XiaoZhuo.wspx">
       <Filter>Resource files</Filter>
     </None>
+    <None Include="..\..\..\..\MDK-ARM\test.uvprojx">
+      <Filter>Resource files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Program Files (x86)\Sysprogs\VisualGDB\builtins_ia32.h">

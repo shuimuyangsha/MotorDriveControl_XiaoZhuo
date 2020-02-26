@@ -197,6 +197,7 @@
     <ClInclude Include="G:\MDK\ARM\ARMCC\include\stdint.h" />
     <ClInclude Include="G:\MDK\ARM\ARMCC\include\string.h" />
     <None Include="..\..\..\..\..\..\..\..\安保机器人\资料\电机&amp;电机驱动\轮毂电机\上海霄卓机器人\驱动器通信说明与列程\驱动器通讯说明.pdf" />
+    <None Include="..\..\..\..\MDK-ARM\test.uvprojx" />
     <None Include="..\..\..\..\霄卓驱动器控制框图.vsdx" />
     <None Include="..\..\..\uC_Probe\MotorDriveControl_XiaoZhuo.wspx" />
     <None Include="mcu.props" />
