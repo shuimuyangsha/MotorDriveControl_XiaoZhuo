@@ -1050,11 +1050,11 @@ Image Symbol Table
     i.com485_rx_data_parse                   0x08002050   Section        0  wired.o(i.com485_rx_data_parse)
     i.com485_uart_pre_isr                    0x08002098   Section        0  wired.o(i.com485_uart_pre_isr)
     i.main                                   0x08002230   Section        0  main.o(i.main)
-    i.remoter_signal_process                 0x080022c4   Section        0  remote.o(i.remoter_signal_process)
-    i.run_control                            0x08002514   Section        0  wired.o(i.run_control)
-    i.sys_tick_post_isr                      0x08002648   Section        0  isr.o(i.sys_tick_post_isr)
-    i.timer_Start_IT                         0x08002674   Section        0  remote.o(i.timer_Start_IT)
-    .constdata                               0x08002694   Section       24  system_stm32f1xx.o(.constdata)
+    i.remoter_signal_process                 0x080022d0   Section        0  remote.o(i.remoter_signal_process)
+    i.run_control                            0x08002520   Section        0  wired.o(i.run_control)
+    i.sys_tick_post_isr                      0x08002654   Section        0  isr.o(i.sys_tick_post_isr)
+    i.timer_Start_IT                         0x08002680   Section        0  remote.o(i.timer_Start_IT)
+    .constdata                               0x080026a0   Section       24  system_stm32f1xx.o(.constdata)
     .data                                    0x20000000   Section       20  remote.o(.data)
     start_flag                               0x2000000e   Data           1  remote.o(.data)
     pulse_width                              0x20000010   Data           2  remote.o(.data)
@@ -1216,15 +1216,15 @@ Image Symbol Table
     check_data_ingtegrity                    0x08002027   Thumb Code    40  common.o(i.check_data_ingtegrity)
     com485_rx_data_parse                     0x08002051   Thumb Code    56  wired.o(i.com485_rx_data_parse)
     com485_uart_pre_isr                      0x08002099   Thumb Code   380  wired.o(i.com485_uart_pre_isr)
-    main                                     0x08002231   Thumb Code   120  main.o(i.main)
-    remoter_signal_process                   0x080022c5   Thumb Code   568  remote.o(i.remoter_signal_process)
-    run_control                              0x08002515   Thumb Code   262  wired.o(i.run_control)
-    sys_tick_post_isr                        0x08002649   Thumb Code    36  isr.o(i.sys_tick_post_isr)
-    timer_Start_IT                           0x08002675   Thumb Code    26  remote.o(i.timer_Start_IT)
-    AHBPrescTable                            0x08002694   Data          16  system_stm32f1xx.o(.constdata)
-    APBPrescTable                            0x080026a4   Data           8  system_stm32f1xx.o(.constdata)
-    Region$$Table$$Base                      0x080026ac   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080026cc   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x08002231   Thumb Code   130  main.o(i.main)
+    remoter_signal_process                   0x080022d1   Thumb Code   568  remote.o(i.remoter_signal_process)
+    run_control                              0x08002521   Thumb Code   262  wired.o(i.run_control)
+    sys_tick_post_isr                        0x08002655   Thumb Code    36  isr.o(i.sys_tick_post_isr)
+    timer_Start_IT                           0x08002681   Thumb Code    26  remote.o(i.timer_Start_IT)
+    AHBPrescTable                            0x080026a0   Data          16  system_stm32f1xx.o(.constdata)
+    APBPrescTable                            0x080026b0   Data           8  system_stm32f1xx.o(.constdata)
+    Region$$Table$$Base                      0x080026b8   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x080026d8   Number         0  anon$$obj.o(Region$$Table)
     command                                  0x20000000   Data           8  remote.o(.data)
     u16gPPMCnt1                              0x20000008   Data           2  remote.o(.data)
     u16gPPMCnt2                              0x2000000a   Data           2  remote.o(.data)
@@ -1271,9 +1271,9 @@ Memory Map of the image
 
   Image Entry point : 0x080000ed
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00002740, Max: 0x00010000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000274c, Max: 0x00010000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000026cc, Max: 0x00010000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000026d8, Max: 0x00010000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1379,13 +1379,13 @@ Memory Map of the image
     0x0800204e   0x00000002   PAD
     0x08002050   0x00000048   Code   RO          212    i.com485_rx_data_parse  wired.o
     0x08002098   0x00000198   Code   RO          213    i.com485_uart_pre_isr  wired.o
-    0x08002230   0x00000094   Code   RO          344    i.main              main.o
-    0x080022c4   0x00000250   Code   RO           16    i.remoter_signal_process  remote.o
-    0x08002514   0x00000134   Code   RO          214    i.run_control       wired.o
-    0x08002648   0x0000002c   Code   RO          163    i.sys_tick_post_isr  isr.o
-    0x08002674   0x00000020   Code   RO           17    i.timer_Start_IT    remote.o
-    0x08002694   0x00000018   Data   RO         2931    .constdata          system_stm32f1xx.o
-    0x080026ac   0x00000020   Data   RO         2986    Region$$Table       anon$$obj.o
+    0x08002230   0x000000a0   Code   RO          344    i.main              main.o
+    0x080022d0   0x00000250   Code   RO           16    i.remoter_signal_process  remote.o
+    0x08002520   0x00000134   Code   RO          214    i.run_control       wired.o
+    0x08002654   0x0000002c   Code   RO          163    i.sys_tick_post_isr  isr.o
+    0x08002680   0x00000020   Code   RO           17    i.timer_Start_IT    remote.o
+    0x080026a0   0x00000018   Data   RO         2931    .constdata          system_stm32f1xx.o
+    0x080026b8   0x00000020   Data   RO         2986    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x000005b0, Max: 0x00005000, ABSOLUTE)
@@ -1416,7 +1416,7 @@ Image component sizes
         40          0          0          0          0       1092   common.o
        120         10          0          0          0        835   gpio.o
        164         26          0         40          0       3068   isr.o
-       250         28          0          8          0       1795   main.o
+       262         30          0          8          0       1803   main.o
       1288        100          0         20         52     425648   remote.o
         36          8        236          0       1024        800   startup_stm32f103xb.o
        192         36          0          9          0       5865   stm32f1xx_hal.o
@@ -1435,7 +1435,7 @@ Image component sizes
        788         90          0         32         72       5121   wired.o
 
     ----------------------------------------------------------------------
-      9518        598        292        116       1340     515571   Object Totals
+      9530        600        292        116       1340     515579   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         12          0          0          3          0          0   (incl. Padding)
 
@@ -1475,15 +1475,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      9640        614        292        116       1340     511791   Grand Totals
-      9640        614        292        116       1340     511791   ELF Image Totals
-      9640        614        292        116          0          0   ROM Totals
+      9652        616        292        116       1340     511799   Grand Totals
+      9652        616        292        116       1340     511799   ELF Image Totals
+      9652        616        292        116          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 9932 (   9.70kB)
+    Total RO  Size (Code + RO Data)                 9944 (   9.71kB)
     Total RW  Size (RW Data + ZI Data)              1456 (   1.42kB)
-    Total ROM Size (Code + RO Data + RW Data)      10048 (   9.81kB)
+    Total ROM Size (Code + RO Data + RW Data)      10060 (   9.82kB)
 
 ==============================================================================
 
