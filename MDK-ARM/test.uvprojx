@@ -439,6 +439,26 @@
               <FileType>1</FileType>
               <FilePath>../Src/stm32f1xx_hal_msp.c</FilePath>
             </File>
+            <File>
+              <FileName>mc_api.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\mc_api.c</FilePath>
+            </File>
+            <File>
+              <FileName>mc_interface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\mc_interface.c</FilePath>
+            </File>
+            <File>
+              <FileName>uc_probeDebug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\uc_probeDebug.c</FilePath>
+            </File>
+            <File>
+              <FileName>mc_type.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Src\mc_type.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

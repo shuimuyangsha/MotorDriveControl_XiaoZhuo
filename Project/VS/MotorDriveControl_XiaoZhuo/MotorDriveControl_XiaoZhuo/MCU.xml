@@ -27,7 +27,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\..\..\..\MDK-ARM\test.uvprojx</RelativePath>
-        <Timestamp>132264790336983972</Timestamp>
+        <Timestamp>132280277540831984</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>
@@ -37,11 +37,7 @@
           <Subdirectories>
             <VirtualDirectorySnapshot>
               <Name>MDK-ARM</Name>
-              <Files>
-                <VirtualFileSnapshot>
-                  <RelativePath>..\..\..\..\MDK-ARM\startup_stm32f103xb.s</RelativePath>
-                </VirtualFileSnapshot>
-              </Files>
+              <Files />
             </VirtualDirectorySnapshot>
             <VirtualDirectorySnapshot>
               <Name>User</Name>
@@ -75,6 +71,18 @@
                 </VirtualFileSnapshot>
                 <VirtualFileSnapshot>
                   <RelativePath>..\..\..\..\Src\stm32f1xx_hal_msp.c</RelativePath>
+                </VirtualFileSnapshot>
+                <VirtualFileSnapshot>
+                  <RelativePath>..\..\..\..\Src\mc_api.c</RelativePath>
+                </VirtualFileSnapshot>
+                <VirtualFileSnapshot>
+                  <RelativePath>..\..\..\..\Src\mc_interface.c</RelativePath>
+                </VirtualFileSnapshot>
+                <VirtualFileSnapshot>
+                  <RelativePath>..\..\..\..\Src\uc_probeDebug.c</RelativePath>
+                </VirtualFileSnapshot>
+                <VirtualFileSnapshot>
+                  <RelativePath>..\..\..\..\Src\mc_type.h</RelativePath>
                 </VirtualFileSnapshot>
               </Files>
             </VirtualDirectorySnapshot>
@@ -160,6 +168,7 @@
             <string>E:\VS_GDB\ARM\testF103\MotorDriveControl_XiaoZhuo\Drivers\CMSIS\Include</string>
           </IncludeDirectories>
           <PreprocessorMacros>
+            <string>$$com.sysprogs.bspoptions.primary_memory$$_layout</string>
             <string>USE_HAL_DRIVER</string>
             <string>STM32F103xB</string>
             <string>USE_HAL_DRIVER</string>

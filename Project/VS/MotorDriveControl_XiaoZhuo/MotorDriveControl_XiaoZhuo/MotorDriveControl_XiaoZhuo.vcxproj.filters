@@ -69,9 +69,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\MDK-ARM\startup_stm32f103xb.s">
-      <Filter>Source files\Application\MDK-ARM</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Src\remote.c">
       <Filter>Source files\Application\User</Filter>
     </ClCompile>
@@ -171,6 +168,15 @@
     <ClCompile Include="..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_crc.c">
       <Filter>Source files\Drivers\STM32F1xx_HAL_Driver</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Src\uc_probeDebug.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Src\mc_api.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Src\mc_interface.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\霄卓驱动器控制框图.vsdx">
@@ -183,6 +189,9 @@
       <Filter>Resource files</Filter>
     </None>
     <None Include="..\..\..\..\MDK-ARM\test.uvprojx">
+      <Filter>Resource files</Filter>
+    </None>
+    <None Include="..\..\..\uC_Probe\MotorDriveControl_XiaoZhuo_Keil2.wspx">
       <Filter>Resource files</Filter>
     </None>
   </ItemGroup>
@@ -242,9 +251,6 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="G:\MDK\ARM\ARMCC\include\stdarg.h">
-      <Filter>Header files</Filter>
-    </ClInclude>
-    <ClInclude Include="G:\MDK\ARM\ARMCC\include\stdint.h">
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h">
@@ -458,6 +464,18 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Inc\wired.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Src\uc_probeDebug.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Src\mc_api.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Src\mc_interface.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Src\mc_type.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

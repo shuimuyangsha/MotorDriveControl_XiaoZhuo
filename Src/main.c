@@ -30,6 +30,7 @@
 #include "sfr.h"
 #include "wired.h"
 #include "math.h"
+#include "uc_probeDebug.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -117,6 +118,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
     while (1)
     {
+		if (ucDebug_start_motor > 0) {
+			MC_StartMotor1();
+		}
+		else if (ucDebug_start_motor <= 0) {
+			MC_StopMotor1();
+		}
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

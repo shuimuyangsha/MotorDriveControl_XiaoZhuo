@@ -42,8 +42,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\..\..\Inc;..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Inc;..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy;..\..\..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include;..\..\..\..\Drivers\CMSIS\Include;../../../../Inc/CAN;../../../../SYSTEM/sys;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>USE_HAL_DRIVER;STM32F103xB;;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../../Inc/CAN;../../../../SYSTEM/sys;..\..\..\..\Inc;..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Inc;..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy;..\..\..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include;..\..\..\..\Drivers\CMSIS\Include;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>USE_HAL_DRIVER;STM32F103xB;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions />
       <CLanguageStandard />
       <CPPLanguageStandard />
@@ -60,7 +60,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\..\..\Inc;..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Inc;..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy;..\..\..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include;..\..\..\..\Drivers\CMSIS\Include;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>USE_HAL_DRIVER;STM32F103xB;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG=1;RELEASE=1;$$com.sysprogs.bspoptions.primary_memory$$_layout;USE_HAL_DRIVER;STM32F103xB;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions />
       <CLanguageStandard />
       <CPPLanguageStandard />
@@ -79,9 +79,11 @@
     <ClCompile Include="..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_can.c" />
     <ClCompile Include="..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_cec.c" />
     <ClCompile Include="..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_crc.c" />
-    <ClCompile Include="..\..\..\..\MDK-ARM\startup_stm32f103xb.s" />
+    <ClCompile Include="..\..\..\..\Src\mc_api.c" />
+    <ClCompile Include="..\..\..\..\Src\mc_interface.c" />
     <ClCompile Include="..\..\..\..\Src\remote.c" />
     <ClCompile Include="..\..\..\..\Src\isr.c" />
+    <ClCompile Include="..\..\..\..\Src\uc_probeDebug.c" />
     <ClCompile Include="..\..\..\..\Src\wired.c" />
     <ClCompile Include="..\..\..\..\Src\common.c" />
     <ClCompile Include="..\..\..\..\Src\main.c" />
@@ -189,17 +191,21 @@
     <ClInclude Include="..\..\..\..\Inc\tim.h" />
     <ClInclude Include="..\..\..\..\Inc\usart.h" />
     <ClInclude Include="..\..\..\..\Inc\wired.h" />
+    <ClInclude Include="..\..\..\..\Src\mc_api.h" />
+    <ClInclude Include="..\..\..\..\Src\mc_interface.h" />
+    <ClInclude Include="..\..\..\..\Src\mc_type.h" />
+    <ClInclude Include="..\..\..\..\Src\uc_probeDebug.h" />
     <ClInclude Include="C:\Program Files (x86)\Sysprogs\VisualGDB\builtins_ia32.h" />
     <ClInclude Include="C:\Program Files (x86)\Sysprogs\VisualGDB\gcc_compat.h" />
     <ClInclude Include="G:\MDK\ARM\ARMCC\include\ctype.h" />
     <ClInclude Include="G:\MDK\ARM\ARMCC\include\math.h" />
     <ClInclude Include="G:\MDK\ARM\ARMCC\include\stdarg.h" />
-    <ClInclude Include="G:\MDK\ARM\ARMCC\include\stdint.h" />
     <ClInclude Include="G:\MDK\ARM\ARMCC\include\string.h" />
     <None Include="..\..\..\..\..\..\..\..\安保机器人\资料\电机&amp;电机驱动\轮毂电机\上海霄卓机器人\驱动器通信说明与列程\驱动器通讯说明.pdf" />
     <None Include="..\..\..\..\MDK-ARM\test.uvprojx" />
     <None Include="..\..\..\..\霄卓驱动器控制框图.vsdx" />
     <None Include="..\..\..\uC_Probe\MotorDriveControl_XiaoZhuo.wspx" />
+    <None Include="..\..\..\uC_Probe\MotorDriveControl_XiaoZhuo_Keil2.wspx" />
     <None Include="mcu.props" />
     <ClInclude Include="$(BSP_ROOT)\Device\Include\stm32f10x.h" />
     <None Include="MotorDriveControl_XiaoZhuo-Debug.vgdbsettings" />

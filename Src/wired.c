@@ -18,6 +18,8 @@ struct Uart_Buf com485_uart_buf;
 struct Driver_Run_Status left_driver_status;//左边驱动器状态
 struct Driver_Run_Status right_driver_status;//右边驱动器状态
 
+
+
 /****************************************************************************
  *
  * Function Name:    com485_rx_data_parse
@@ -207,4 +209,7 @@ void run_control(void)
 	com485_uart_buf.tx_counter =0;
 	COM485_UART->CR1 |= UART_IT_TXE;//启动串口数据发送
 }
+
+
+
 
