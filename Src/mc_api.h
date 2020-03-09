@@ -1,7 +1,8 @@
 #ifndef __MC_API_H
 #define __MC_API_H
 
-//#include "mc_type.h"
+#include "mc_type.h"
+#include "mc_interface.h"
 
 /* Starts Motor 1 */
 int MC_StartMotor1(void);

@@ -177,6 +177,9 @@
     <ClCompile Include="..\..\..\..\Src\mc_interface.c">
       <Filter>Source files\Application\User</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\MDK-ARM\startup_stm32f103xb.s">
+      <Filter>Source files\Application\MDK-ARM</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\霄卓驱动器控制框图.vsdx">

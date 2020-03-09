@@ -7,7 +7,7 @@
     <screen RegisteredName="DataScreen3" ScreenHeader="DataScreen1" ScreenType="DataScreen" />
   </screens>
   <nodes>
-    <node ScreenId="DataScreen3" NodeId="CustomDiagramNode1" OffsetX="332" OffsetY="163" AllowMove="true" AllowResize="false" AllowRotate="false" AllowSelect="true" Width="100" Height="420" ZIndex="0" IsLocked="false" RotateAngle="0" Pivot="0.5,0.5" UpdateWhenVisible="true" IsWritableControl="false" WritableValue="0" IsDrawingShape="false" ShapeTypeStr="" RibbonTool="None">
+    <node ScreenId="DataScreen3" NodeId="CustomDiagramNode1" OffsetX="1502.1567999999998" OffsetY="490" AllowMove="true" AllowResize="false" AllowRotate="false" AllowSelect="true" Width="100" Height="420" ZIndex="0" IsLocked="false" RotateAngle="0" Pivot="0.5,0.5" UpdateWhenVisible="true" IsWritableControl="false" WritableValue="0" IsDrawingShape="false" ShapeTypeStr="" RibbonTool="None">
       <innercontent>
         <content ControlType="Slider" Type="Slider">
           <definitions Width="100" Height="420" RangeMax="200" RangeMin="-200" RangeIsLogarithmic="false" RangeIsReversed="false" NumberOfRanges="3" MappingMode="Absolute" Transition="Gradient" ScalingFactor="1" ScalingOffset="0" ScalingFormat="" LeadingZeroes="0" DecimalPlaces="2" SliderValue="-177" ShowImages="false" NumberOfDecimals="2" FontFamily="Segoe UI" FontColor="#FF808080" FontSize="10" ShowLabel="true" UseDiscreteValues="false" TickFrequency="40" SliderBackgroundMode="Gauge" />
@@ -27,7 +27,7 @@
         <symbol path="DebugSet_Straight" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
       </symbols>
     </node>
-    <node ScreenId="DataScreen3" NodeId="CustomDiagramNode2" OffsetX="550" OffsetY="320" AllowMove="true" AllowResize="false" AllowRotate="false" AllowSelect="true" Width="420" Height="100" ZIndex="2" IsLocked="false" RotateAngle="0" Pivot="0.5,0.5" UpdateWhenVisible="true" IsWritableControl="false" WritableValue="0" IsDrawingShape="false" ShapeTypeStr="" RibbonTool="None">
+    <node ScreenId="DataScreen3" NodeId="CustomDiagramNode2" OffsetX="1720.1567999999998" OffsetY="647" AllowMove="true" AllowResize="false" AllowRotate="false" AllowSelect="true" Width="420" Height="100" ZIndex="2" IsLocked="false" RotateAngle="0" Pivot="0.5,0.5" UpdateWhenVisible="true" IsWritableControl="false" WritableValue="0" IsDrawingShape="false" ShapeTypeStr="" RibbonTool="None">
       <innercontent>
         <content ControlType="HSlider" Type="HSlider">
           <definitions Width="420" Height="100" RangeMax="200" RangeMin="-200" RangeIsLogarithmic="false" RangeIsReversed="false" NumberOfRanges="3" MappingMode="Absolute" Transition="Gradient" ScalingFactor="1" ScalingOffset="0" ScalingFormat="" LeadingZeroes="0" DecimalPlaces="2" SliderValue="0" ShowImages="false" NumberOfDecimals="2" FontFamily="Segoe UI" FontColor="#FF808080" FontSize="10" ShowLabel="true" UseDiscreteValues="false" TickFrequency="40" SliderBackgroundMode="Gauge" />
@@ -47,7 +47,7 @@
         <symbol path="DebugSet_Wheel" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
       </symbols>
     </node>
-    <node ScreenId="DataScreen3" NodeId="CustomDiagramNode3" OffsetX="655.98981333333313" OffsetY="513.60666666666668" AllowMove="true" AllowResize="false" AllowRotate="false" AllowSelect="true" Width="300" Height="60" ZIndex="3" IsLocked="false" RotateAngle="0" Pivot="0.5,0.5" UpdateWhenVisible="true" IsWritableControl="false" WritableValue="0" IsDrawingShape="false" ShapeTypeStr="" RibbonTool="None">
+    <node ScreenId="DataScreen3" NodeId="CustomDiagramNode3" OffsetX="1826.1466133333329" OffsetY="840.60666666666668" AllowMove="true" AllowResize="false" AllowRotate="false" AllowSelect="true" Width="300" Height="60" ZIndex="3" IsLocked="false" RotateAngle="0" Pivot="0.5,0.5" UpdateWhenVisible="true" IsWritableControl="false" WritableValue="0" IsDrawingShape="false" ShapeTypeStr="" RibbonTool="None">
       <innercontent>
         <content ControlType="Numeric" Type="Numeric1">
           <definitions NumericFontFamilyValue="Arial Black" NumericFontSizeValue="50" NumericForegroundValue="#FFFFFFFF" NumericTextAlignmentValue="Right" IsThousandSeparatorEnabled="true" ScalingFactor="1" ScalingOffset="0" ScalingFormat="" LeadingZeroes="0" DecimalPlaces="0" Notation="Regular" Representation="Decimal" Width="300" Height="60" />
@@ -57,7 +57,7 @@
         <symbol path="right_driver_status" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
       </symbols>
     </node>
-    <node ScreenId="DataScreen3" NodeId="CustomDiagramNode4" OffsetX="655.98981333333313" OffsetY="436.80333333333334" AllowMove="true" AllowResize="false" AllowRotate="false" AllowSelect="true" Width="300" Height="60" ZIndex="4" IsLocked="false" RotateAngle="0" Pivot="0.5,0.5" UpdateWhenVisible="true" IsWritableControl="false" WritableValue="0" IsDrawingShape="false" ShapeTypeStr="" RibbonTool="None">
+    <node ScreenId="DataScreen3" NodeId="CustomDiagramNode4" OffsetX="1826.1466133333329" OffsetY="763.80333333333328" AllowMove="true" AllowResize="false" AllowRotate="false" AllowSelect="true" Width="300" Height="60" ZIndex="4" IsLocked="false" RotateAngle="0" Pivot="0.5,0.5" UpdateWhenVisible="true" IsWritableControl="false" WritableValue="0" IsDrawingShape="false" ShapeTypeStr="" RibbonTool="None">
       <innercontent>
         <content ControlType="Numeric" Type="Numeric1">
           <definitions NumericFontFamilyValue="Arial Black" NumericFontSizeValue="50" NumericForegroundValue="#FFFFFFFF" NumericTextAlignmentValue="Right" IsThousandSeparatorEnabled="true" ScalingFactor="1" ScalingOffset="0" ScalingFormat="" LeadingZeroes="0" DecimalPlaces="0" Notation="Regular" Representation="Decimal" Width="300" Height="60" />
@@ -65,6 +65,16 @@
       </innercontent>
       <symbols>
         <symbol path="left_driver_status" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+      </symbols>
+    </node>
+    <node ScreenId="DataScreen3" NodeId="CustomDiagramNode6" OffsetX="1053.1824087105615" OffsetY="597.80442672610866" AllowMove="true" AllowResize="false" AllowRotate="false" AllowSelect="true" Width="100" Height="27" ZIndex="2" IsLocked="false" RotateAngle="0" Pivot="0.5,0.5" UpdateWhenVisible="true" IsWritableControl="false" WritableValue="0" IsDrawingShape="false" ShapeTypeStr="" RibbonTool="None">
+      <innercontent>
+        <content ControlType="IPhoneSwitch" Type="iPhoneSwitch">
+          <definitions Width="100" Height="27" ButtonValue="1" ToggleOnValue="1" ToggleOffValue="0" ButtonLabel="" IsButtonChecked="false" LabelOffValue="" LabelOnValue="" FontColor="#FF000000" FontFamily="Segoe UI" FontSize="12" />
+        </content>
+      </innercontent>
+      <symbols>
+        <symbol path="ucDebug_start_motor" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
       </symbols>
     </node>
   </nodes>
@@ -112,7 +122,7 @@
           <IsActiveWindow>false</IsActiveWindow>
           <CanSerialize>true</CanSerialize>
           <WindowRect />
-          <TabGroupName>8438801</TabGroupName>
+          <TabGroupName>8976969</TabGroupName>
           <IsTabGroupOwner>false</IsTabGroupOwner>
           <SideTabOrder>0</SideTabOrder>
           <IndexInDockMode>3</IndexInDockMode>
@@ -194,7 +204,7 @@
           <IsActiveWindow>false</IsActiveWindow>
           <CanSerialize>true</CanSerialize>
           <WindowRect />
-          <TabGroupName>12454319</TabGroupName>
+          <TabGroupName>54722916</TabGroupName>
           <IsTabGroupOwner>false</IsTabGroupOwner>
           <SideTabOrder>0</SideTabOrder>
           <IndexInDockMode>2</IndexInDockMode>
@@ -276,7 +286,7 @@
           <IsActiveWindow>false</IsActiveWindow>
           <CanSerialize>true</CanSerialize>
           <WindowRect />
-          <TabGroupName>2166929</TabGroupName>
+          <TabGroupName>1507858</TabGroupName>
           <IsTabGroupOwner>false</IsTabGroupOwner>
           <SideTabOrder>0</SideTabOrder>
           <IndexInDockMode>1</IndexInDockMode>

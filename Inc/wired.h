@@ -97,6 +97,7 @@ enum DRIVER_CMD							//ÃüÁî
 #define MAX_UART_RX_SIZE UART_UPLINK_DATA_LENGTH
 #define UART_RX_BYTE_TIMEOUT 2
 
+
 struct Uart_Buf {
     uint8_t rx_buf[MAX_UART_RX_SIZE];		  	//´®¿Ú½ÓÊÕbuf
     uint8_t tx_buf[MAX_UART_TX_SIZE];			//´®¿Ú·¢ËÍbuf
@@ -136,6 +137,13 @@ extern int differential_speed;
 extern struct Uart_Buf left_uart_buf;
 extern struct Uart_Buf right_uart_buf;
 
+extern struct Uart_Buf com485_uart_buf;
+extern struct Driver_Run_Status left_driver_status;//×ó±ßÇý¶¯Æ÷×´Ì¬
+extern struct Driver_Run_Status right_driver_status;//ÓÒ±ßÇý¶¯Æ÷×´Ì¬
+
 void com485_uart_pre_isr(void);
 void run_control(void);
+
+void PrepareAFrame_XiaoZhuo(uint8_t *pFrame, char ID, char command, int data);  //
+void USART2_RS485_SendCommand(char *pBuffer, int len);
 #endif
