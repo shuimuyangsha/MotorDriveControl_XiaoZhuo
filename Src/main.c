@@ -111,7 +111,8 @@ int main(void)
 	//Disable485TX();
     HAL_Delay(500);
     timer_Start_IT();            //¿ªÆôÒ£¿ØÆ÷½ÓÊÕ
-	//MC_StartMotor1();
+
+	MC_StartMotor1();
   /* USER CODE END 2 */
 
   /* Infinite loop */

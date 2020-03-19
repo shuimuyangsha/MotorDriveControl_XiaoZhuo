@@ -157,4 +157,7 @@ extern struct Uart_Buf com485_uart_buf;
 
 void com485_uart_pre_isr(void);
 void run_control(void);
+
+void PrepareAFrame_XiaoZhuo(uint8_t *pFrame, char ID, char command, int data);  //
+void USART2_RS485_SendCommand(char *pBuffer, int len);
 #endif

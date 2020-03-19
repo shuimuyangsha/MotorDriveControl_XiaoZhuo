@@ -12,7 +12,7 @@ bool MCI_StartMotor(char ID)
 	}
 	tx_time = sys_time;
 
-	PrepareAFrame_XiaoZhuo((uint8_t *)&com485_uart_buf.tx_buf, ID, DRIVER_CMD_SPEED, (int)50);
+	PrepareAFrame_XiaoZhuo((uint8_t *)&com485_uart_buf.tx_buf, ID, DRIVER_CMD_MOTOR_ENABLE, (int)1);
 
 	USART2_RS485_SendCommand((char *)&com485_uart_buf.tx_buf, sizeof(com485_uart_buf.tx_buf));
 
@@ -29,7 +29,7 @@ bool MCI_StopMotor(char ID)
 	}
 	tx_time = sys_time;
 
-	PrepareAFrame_XiaoZhuo((uint8_t *)&com485_uart_buf.tx_buf, ID, DRIVER_CMD_SPEED, (int)0);
+	PrepareAFrame_XiaoZhuo((uint8_t *)&com485_uart_buf.tx_buf, ID, DRIVER_CMD_MOTOR_ENABLE, (int)0);
 
 	USART2_RS485_SendCommand((char *)&com485_uart_buf.tx_buf, sizeof(com485_uart_buf.tx_buf));
 	return 0;

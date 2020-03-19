@@ -218,6 +218,51 @@ void run_control(void)
 	COM485_UART->CR1 |= UART_IT_TXE;//启动串口数据发送
 }
 
+/*数据帧打包，准备一个数据帧*/
+//
+void PrepareAFrame_XiaoZhuo(uint8_t *pFrame, char ID, char command, int data)  //
+{
+	// prepare frames to control/read from motors
+
+	uint16_t crc_result;
+	pFrame[0] = ID;
+	pFrame[1] = command;
+	pFrame[2] = (int)(data & 0xff); //
+	pFrame[3] = (int)(data & 0xff00) >> 8;  //
+
+	crc_result = crc16(pFrame, UART_DOWNLINK_DATA_LENGTH - 2);
+	pFrame[UART_DOWN_CRC_L] = crc_result & 0xff;
+	pFrame[UART_DOWN_CRC_H] = (crc_result >> 8) & 0xff;
+
+
+
+	//buf[UART_DOWN_ID] = 0;						//为0表示两个驱动器都会接收
+	//buf[UART_DOWN_CMD] = DRIVER_CMD_SPEED;
+	//buf[UART_DOWN_DATA1] = left_rpm & 0xff;
+	//buf[UART_DOWN_DATA2] = (left_rpm >> 8) & 0xff;
+
+	//buf[UART_DOWN_SUM] = buf[UART_DOWN_ID] + buf[UART_DOWN_CMD] + buf[UART_DOWN_DATA1] + buf[UART_DOWN_DATA2];
+}
+
+void USART2_RS485_SendCommand(char *pBuffer, int len)
+{
+	//int i = 0;
+	//EnableUSART3_RS485_Send();
+	//while (USART_GetFlagStatus(USART3, USART_FLAG_TC) == RESET);
+	//for (i = 0; i < len; ++i)
+	//{
+	//	USART_SendData(USART3, pBuffer[i]);
+	//	while (USART_GetFlagStatus(USART3, USART_FLAG_TC) == RESET);
+	//}
+	//DisableUSART3_RS485_Send();
+
+	Enable485TX();//使能485发送
+
+	com485_uart_buf.tx_counter = 0;
+	COM485_UART->CR1 |= UART_IT_TXE;//启动串口数据发送
+}
+
+
 
 
 
