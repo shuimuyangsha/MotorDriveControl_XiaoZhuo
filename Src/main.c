@@ -119,13 +119,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
     while (1)
     {
-		if (ucDebug_start_motor > 0) {
-			MC_StartMotor1();
-		}
-		else if (ucDebug_start_motor <= 0) {
-			MC_StopMotor1();
-		}
-		HAL_Delay(20);
+		//if (ucDebug_start_motor > 0) {
+		//	MC_StartMotor1();
+		//}
+		//else if (ucDebug_start_motor <= 0) {
+		//	MC_StopMotor1();
+		//}
+		//HAL_Delay(20);
 
     /* USER CODE END WHILE */
 
@@ -150,15 +150,15 @@ int main(void)
 //		
 //		}
 //		
-//		left_rpm = DebugSet_left_rpm;
-//		right_rpm = DebugSet_right_rpm;
-//		if(fabs((double)DebugSet_left_rpm) < DebugSet_deta){
-//			left_rpm = 0;
-//			right_rpm = 0;
-//		}
-////		left_rpm = 150;
-////		right_rpm = 150;
-//		run_control();//将转度发送给驱动器
+		left_rpm = DebugSet_left_rpm;
+		right_rpm = DebugSet_right_rpm;
+		if(fabs((double)DebugSet_left_rpm) < DebugSet_deta){
+			left_rpm = 0;
+			right_rpm = 0;
+		}
+//		left_rpm = 150;
+//		right_rpm = 150;
+		run_control();//将转度发送给驱动器
     }
   /* USER CODE END 3 */
 }
