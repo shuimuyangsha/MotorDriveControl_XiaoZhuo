@@ -90,8 +90,8 @@
 
 bool MCI_StartMotor(char ID);
 bool MCI_StopMotor(char ID);
-#define SPEED_SETTING_RESPONSE_WAITTIME 10 // milliseconds
-#define SPEED_READING_RESPONSE_WAITTIME 10 // milliseconds
+#define SPEED_SETTING_RESPONSE_WAITTIME 20 // milliseconds
+#define SPEED_READING_RESPONSE_WAITTIME 20 // milliseconds
 
 #endif // !__MC_INTERFACE_H
 

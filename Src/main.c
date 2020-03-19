@@ -29,6 +29,9 @@
 #include "remote.h"
 #include "sfr.h"
 #include "wired.h"
+#include "math.h"
+#include "uc_probeDebug.h"
+#include "mc_api.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,7 +52,13 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+int DebugSet_left_rpm = 0;
+int DebugSet_right_rpm = 0;
 
+int DebugSet_Wheel = 0;
+int DebugSet_Straight = 0;
+
+float DebugSet_deta = 0.01;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -102,13 +111,20 @@ int main(void)
 	//Disable485TX();
     HAL_Delay(500);
     timer_Start_IT();            //开启遥控器接收
-	
+	//MC_StartMotor1();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1)
     {
+		//if (ucDebug_start_motor > 0) {
+		//	MC_StartMotor1();
+		//}
+		//else if (ucDebug_start_motor <= 0) {
+		//	MC_StopMotor1();
+		//}
+		//HAL_Delay(20);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -116,6 +132,29 @@ int main(void)
 		Computing_speed();//获取遥控器发送的速度值
 		Computing_rpm();//将速度转化成转速
 
+//		if(DebugSet_Wheel!=0){
+//			DebugSet_left_rpm = DebugSet_Wheel;
+//			DebugSet_right_rpm = -DebugSet_Wheel;
+//			left_rpm = DebugSet_left_rpm;
+//			right_rpm = DebugSet_right_rpm;			
+//		
+//		}
+//		else if(DebugSet_Straight != 0){
+//			DebugSet_left_rpm = DebugSet_Straight;
+//			DebugSet_right_rpm = DebugSet_Straight;
+//			left_rpm = DebugSet_left_rpm;
+//			right_rpm = DebugSet_right_rpm;
+//		
+//		}
+//		
+		left_rpm = DebugSet_left_rpm;
+		right_rpm = DebugSet_left_rpm;
+		if (fabs((double)DebugSet_left_rpm) < DebugSet_deta) {
+			left_rpm = 0;
+			right_rpm = 0;
+		}
+		//left_rpm = 100;
+		//right_rpm = 100;
 		run_control();//将转度发送给驱动器
     }
   /* USER CODE END 3 */

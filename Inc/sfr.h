@@ -9,9 +9,12 @@
 #define RIGHT_H_UART huart2
 
 
-#define COM485_UART USART1
+#define COM485_UART USART2
 
-#define TX_485_EN_Pin GPIO_PIN_11
+//#define TX_485_EN_Pin GPIO_PIN_11
+//#define TX_485_EN_GPIO_Port GPIOA
+
+#define TX_485_EN_Pin GPIO_PIN_6
 #define TX_485_EN_GPIO_Port GPIOA
 
 //#define Enable485TX() 	do{COM485_UART->CR1 &= (~UART_IT_RXNE); HAL_GPIO_WritePin(TX_485_EN_GPIO_Port,TX_485_EN_Pin,  GPIO_PIN_SET); USART1->CR1 |= USART_CR1_TE; USART1->CR1 &= ~USART_CR1_RE;}while(0)

@@ -150,23 +150,23 @@
         <content ControlType="XYGraph" Type="Graph3">
           <definitions Width="600" Height="350" TypeOfXAxisValues="SampleNumber" TypeOfUpdateStyle="ScrollLeft" MaxNumSamples="2000" IsLegendVisible="true" ChartType="LineChart" EraseTrace="false" XAxisFrom="0" XAxisTo="200" XAxisStep="20" PrimaryYAxisFrom="-5000" PrimaryYAxisTo="5000" PrimaryYAxisStep="10" YAutoRange="false" ScalingFactor="1" ScalingOffset="0" ScalingFormat="" DecimalPlaces="0" LeadingZeroes="0" LegendPosition="InsideTopRight" ShowLegend="false" Show_XAxisLabels="false" />
           <symbolseries>
-            <serie YAxisFrom="0" YAxisStep="20" YAxisTo="200" Path="right_driver_status.rt_speed">
-              <seriesmodel EraseTrace="false" MaxNumSamples="2000" TypeOfUpdateStyle="ScrollLeft" TypeOfXAxisValues="SampleNumber" XAxisOffset="0" />
-              <seriesview ShowArea="false" ShowLine="true" ShowPoints="false" AreaFill="#FF0000FF" PointStroke="#FF0000FF" PointStrokeThickness="1" PointFill="#FF0000FF" PointSize="5" LineStroke="#FF0000FF" LineStrokeThickness="1" HighlightingEnabled="false" PointShape="Ellipse" />
-            </serie>
             <serie YAxisFrom="0" YAxisStep="20" YAxisTo="200" Path="left_driver_status.rt_speed">
               <seriesmodel EraseTrace="false" MaxNumSamples="2000" TypeOfUpdateStyle="ScrollLeft" TypeOfXAxisValues="SampleNumber" XAxisOffset="0" />
               <seriesview ShowArea="false" ShowLine="true" ShowPoints="false" AreaFill="#FFFF0000" PointStroke="#FFFF0000" PointStrokeThickness="1" PointFill="#FFFF0000" PointSize="5" LineStroke="#FFFF0000" LineStrokeThickness="1" HighlightingEnabled="false" PointShape="Ellipse" />
+            </serie>
+            <serie YAxisFrom="0" YAxisStep="20" YAxisTo="200" Path="right_driver_status.rt_speed">
+              <seriesmodel EraseTrace="false" MaxNumSamples="2000" TypeOfUpdateStyle="ScrollLeft" TypeOfXAxisValues="SampleNumber" XAxisOffset="0" />
+              <seriesview ShowArea="false" ShowLine="true" ShowPoints="false" AreaFill="#FF0000FF" PointStroke="#FF0000FF" PointStrokeThickness="1" PointFill="#FF0000FF" PointSize="5" LineStroke="#FF0000FF" LineStrokeThickness="1" HighlightingEnabled="false" PointShape="Ellipse" />
             </serie>
           </symbolseries>
         </content>
       </innercontent>
       <symbols>
-        <symbol path="right_driver_status" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0">
-          <symbol path="right_driver_status.rt_speed" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
-        </symbol>
         <symbol path="left_driver_status" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0">
           <symbol path="left_driver_status.rt_speed" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        </symbol>
+        <symbol path="right_driver_status" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0">
+          <symbol path="right_driver_status.rt_speed" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
         </symbol>
       </symbols>
     </node>
@@ -428,10 +428,10 @@
           <ZorderInFloatMode>0</ZorderInFloatMode>
           <TabOrderIndex>-1</TabOrderIndex>
           <PreviousContainerDesiredSize>
-            <Width>1628</Width>
+            <Width>1642</Width>
             <Height>0</Height>
           </PreviousContainerDesiredSize>
-          <PreviousDesiredWidthInDockedMode>1628</PreviousDesiredWidthInDockedMode>
+          <PreviousDesiredWidthInDockedMode>1642</PreviousDesiredWidthInDockedMode>
           <PreviousDesiredHeightInDockedMode>269</PreviousDesiredHeightInDockedMode>
           <Name>usrSymbolBrowser</Name>
           <ShowTopmostMenuItem>false</ShowTopmostMenuItem>
@@ -510,11 +510,11 @@
           <ZorderInFloatMode>0</ZorderInFloatMode>
           <TabOrderIndex>-1</TabOrderIndex>
           <PreviousContainerDesiredSize>
-            <Width>268</Width>
-            <Height>858</Height>
+            <Width>270</Width>
+            <Height>868</Height>
           </PreviousContainerDesiredSize>
-          <PreviousDesiredWidthInDockedMode>268</PreviousDesiredWidthInDockedMode>
-          <PreviousDesiredHeightInDockedMode>214</PreviousDesiredHeightInDockedMode>
+          <PreviousDesiredWidthInDockedMode>270</PreviousDesiredWidthInDockedMode>
+          <PreviousDesiredHeightInDockedMode>217</PreviousDesiredHeightInDockedMode>
           <Name>workspaceExplorerMainView</Name>
           <ShowTopmostMenuItem>false</ShowTopmostMenuItem>
           <TopMost>false</TopMost>
@@ -592,11 +592,11 @@
           <ZorderInFloatMode>0</ZorderInFloatMode>
           <TabOrderIndex>-1</TabOrderIndex>
           <PreviousContainerDesiredSize>
-            <Width>268</Width>
-            <Height>858</Height>
+            <Width>270</Width>
+            <Height>868</Height>
           </PreviousContainerDesiredSize>
-          <PreviousDesiredWidthInDockedMode>268</PreviousDesiredWidthInDockedMode>
-          <PreviousDesiredHeightInDockedMode>640</PreviousDesiredHeightInDockedMode>
+          <PreviousDesiredWidthInDockedMode>270</PreviousDesiredWidthInDockedMode>
+          <PreviousDesiredHeightInDockedMode>647</PreviousDesiredHeightInDockedMode>
           <Name>toolboxMainView</Name>
           <ShowTopmostMenuItem>false</ShowTopmostMenuItem>
           <TopMost>false</TopMost>

@@ -80,8 +80,11 @@
     <ClCompile Include="..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_cec.c" />
     <ClCompile Include="..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_crc.c" />
     <ClCompile Include="..\..\..\..\MDK-ARM\startup_stm32f103xb.s" />
+    <ClCompile Include="..\..\..\..\Src\mc_api.c" />
+    <ClCompile Include="..\..\..\..\Src\mc_interface.c" />
     <ClCompile Include="..\..\..\..\Src\remote.c" />
     <ClCompile Include="..\..\..\..\Src\isr.c" />
+    <ClCompile Include="..\..\..\..\Src\uc_probeDebug.c" />
     <ClCompile Include="..\..\..\..\Src\wired.c" />
     <ClCompile Include="..\..\..\..\Src\common.c" />
     <ClCompile Include="..\..\..\..\Src\main.c" />

@@ -153,6 +153,7 @@ extern int throttle_speed;
 extern int differential_speed;
 extern struct Uart_Buf left_uart_buf;
 extern struct Uart_Buf right_uart_buf;
+extern struct Uart_Buf com485_uart_buf;
 
 void com485_uart_pre_isr(void);
 void run_control(void);
