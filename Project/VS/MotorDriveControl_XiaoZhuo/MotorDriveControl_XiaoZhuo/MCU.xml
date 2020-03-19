@@ -27,7 +27,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\..\..\..\MDK-ARM\test.uvprojx</RelativePath>
-        <Timestamp>132280277540831984</Timestamp>
+        <Timestamp>132290589536175195</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>
@@ -73,16 +73,7 @@
                   <RelativePath>..\..\..\..\Src\stm32f1xx_hal_msp.c</RelativePath>
                 </VirtualFileSnapshot>
                 <VirtualFileSnapshot>
-                  <RelativePath>..\..\..\..\Src\mc_api.c</RelativePath>
-                </VirtualFileSnapshot>
-                <VirtualFileSnapshot>
-                  <RelativePath>..\..\..\..\Src\mc_interface.c</RelativePath>
-                </VirtualFileSnapshot>
-                <VirtualFileSnapshot>
-                  <RelativePath>..\..\..\..\Src\uc_probeDebug.c</RelativePath>
-                </VirtualFileSnapshot>
-                <VirtualFileSnapshot>
-                  <RelativePath>..\..\..\..\Src\mc_type.h</RelativePath>
+                  <RelativePath>..\..\..\..\Src\crc_check.c</RelativePath>
                 </VirtualFileSnapshot>
               </Files>
             </VirtualDirectorySnapshot>

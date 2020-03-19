@@ -47,7 +47,7 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>..\OBJ\</OutputDirectory>
+          <OutputDirectory>test\</OutputDirectory>
           <OutputName>test</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
@@ -440,24 +440,9 @@
               <FilePath>../Src/stm32f1xx_hal_msp.c</FilePath>
             </File>
             <File>
-              <FileName>mc_api.c</FileName>
+              <FileName>crc_check.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Src\mc_api.c</FilePath>
-            </File>
-            <File>
-              <FileName>mc_interface.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\mc_interface.c</FilePath>
-            </File>
-            <File>
-              <FileName>uc_probeDebug.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\uc_probeDebug.c</FilePath>
-            </File>
-            <File>
-              <FileName>mc_type.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Src\mc_type.h</FilePath>
+              <FilePath>..\Src\crc_check.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -4,32 +4,34 @@
 #include "stm32f1xx.h"
 
 //驱动器返回给上位机的数据
-enum UART_UPLINK_DATA		
+enum UART_UPLINK_DATA
 {
-	UART_UP_ID,				//驱动器ID
-	UART_UP_SPEED1,			//速度低8位
-	UART_UP_SPEED2,			//速度高8位
-	UART_UP_ERROR1,			//错误状态低8位
-	UART_UP_ERROR2,			//错误状态高8位
-	UART_UP_VOLTAGE,		//电压，为实际值的10倍，最大25.5V，高于此电压均显示25.5V
-	UART_UP_CURRENT,		//电流，为实际值的10倍，最大25.5A，高于此电压均显示25.5A	
-	UART_UP_TEMPERATURE,	//温度	
-	UART_UP_SUM,
-	UART_UP_END,
+    UART_UP_ID,				//驱动器ID
+    UART_UP_SPEED1,			//速度低8位
+    UART_UP_SPEED2,			//速度高8位
+    UART_UP_ERROR1,			//错误状态低8位
+    UART_UP_ERROR2,			//错误状态高8位
+    UART_UP_VOLTAGE,		//电压，为实际值的10倍，最大25.5V，高于此电压均显示25.5V
+    UART_UP_CURRENT,		//电流，为实际值的10倍，最大25.5A，高于此电压均显示25.5A
+    UART_UP_TEMPERATURE,	//温度
+    UART_UP_CRC_L,			//CRC16校验结果低8位
+    UART_UP_CRC_H,			//CRC16校验结果高8位
+    UART_UP_END,
 };
 
 #define UART_UPLINK_DATA_LENGTH	UART_UP_END
 #define UART_UPLINK_TX_TIME		(87*UART_UPLINK_DATA_LENGTH)
 
 
-enum UART_DOWNLINK_DATA	
+enum UART_DOWNLINK_DATA
 {
-	UART_DOWN_ID,
-	UART_DOWN_CMD,
-	UART_DOWN_DATA1,
-	UART_DOWN_DATA2,
-	UART_DOWN_SUM,
-	UART_DOWN_END,
+    UART_DOWN_ID,				//	驱动器编号
+    UART_DOWN_CMD,				//命令字
+    UART_DOWN_DATA1,			//数据低8位
+    UART_DOWN_DATA2,			//数据高8位
+    UART_DOWN_CRC_L,			//CRC16校验结果低8位
+    UART_DOWN_CRC_H,			//CRC16校验结果高8位
+    UART_DOWN_END,
 };
 #define UART_DOWNLINK_DATA_LENGTH	UART_DOWN_END
 
@@ -48,16 +50,16 @@ enum DRIVER_CMD							//命令
     DRIVER_CMD_SPEED_TIME,										//加速时间
     DRIVER_CMD_MAX_CURRENT,										//最大电流
     DRIVER_CMD_DECEL_TIME,											//10减速时间
-    
-	DRIVER_CMD_ERR_RESTART_ENABLE,										//发生错误后自动重启，0：不重启，1：重启
-	DRIVER_CMD_ERR_DELAY_TIME,									//发生错误后的等待时间
+
+    DRIVER_CMD_ERR_RESTART_ENABLE,										//发生错误后自动重启，0：不重启，1：重启
+    DRIVER_CMD_ERR_DELAY_TIME,									//发生错误后的等待时间
     DRIVER_CMD_STALL_TIME,				//							//触发堵转保护的时间
 
     DRIVER_CMD_ERROR_MASK,												//DATA0: 0:清除，1：设置； DATA1:异常号
-	DRIVER_CMD_DIR_REVERSE,											//控制方向反相，0：不反相，1：反相
+    DRIVER_CMD_DIR_REVERSE,											//控制方向反相，0：不反相，1：反相
     DRIVER_CMD_BAUDRATE,												//16波特率设置，见枚举
-	DRIVER_CMD_MAX_TORQUE,												//最大力矩
-	
+    DRIVER_CMD_MAX_TORQUE,												//最大力矩
+
     DRIVER_CMD_CW_PHASE_OFFSET,										//正转相位偏置
     DRIVER_CMD_CCW_PHASE_OFFSET,	//								//反转相位偏置
 
@@ -79,14 +81,30 @@ enum DRIVER_CMD							//命令
 
     DRIVER_CMD_ID_KP,												//写ID PID的KP值	 ：
     DRIVER_CMD_ID_KI,												//写ID PID的KI值	 ：
-    DRIVER_CMD_ID_KD,												//写ID PID的KD值	 ：
+    DRIVER_CMD_ID_KD,												//32写ID PID的KD值	 ：
 
-	DRIVER_CMD_POS_KP,												//写位置环 PID的KP值	 ：
+    DRIVER_CMD_POS_KP,												//写位置环 PID的KP值	 ：
     DRIVER_CMD_POS_KI,												//写位置环 PID的KI值	 ：
     DRIVER_CMD_POS_KD,												//写 PID的KD值	 ：
+
+    DRIVER_CMD_INSTANT_ACCEL_TIME,									//瞬时加速时间
+    DRIVER_CMD_INSTANT_DECEL_TIME,									//瞬时减速时间
+
+    DRIVER_CMD_PC_FAST_READ_CONFIG,										//快速读取配置参数
+    DRIVER_CMD_PC_FAST_SET_CONFIG,										//快速设置配置参数
+    DRIVER_CMD_PC_READ_CONFIG,											//读取配置参数
+    DRIVER_CMD_PC_SET_CONFIG,											//设置配置参数
+    DRIVER_CMD_PC_REAL_TIME_DATA,
+    DRIVER_CMD_PC_CONTROL,
+
+    DRIVER_CMD_ERROR_TRIG_CURRENT,								//最小异常触发电流，小于该值，短路异常，反转异常将不会触发
+    DRIVER_CMD_SERIAL_MODE,											//设置串口模式
+
+    DRIVER_CMD_FAST_SHUTDOWN_TIME,									//快速关机时间，与加减速时间类似，专门用于快速关机的减速过程
+    DRIVER_CMD_SLOW_SHUTDOWN_TIME,									//慢速关机时间，与加减速时间类似，专门用于慢速关机的减速过程
+
+	DRIVER_CMD_MOTOR_ENABLE,										// 电机使能，0：电机不使能，电机处于松轴状态；1：电机使能
 	
-	DRIVER_CMD_INSTANT_ACCEL_TIME,									//瞬时加速时间
-	DRIVER_CMD_INSTANT_DECEL_TIME,									//瞬时减速时间
     DRIVER_CMD_DATA_END,
 };
 
@@ -96,7 +114,6 @@ enum DRIVER_CMD							//命令
 #define MAX_UART_TX_SIZE UART_DOWNLINK_DATA_LENGTH
 #define MAX_UART_RX_SIZE UART_UPLINK_DATA_LENGTH
 #define UART_RX_BYTE_TIMEOUT 2
-
 
 struct Uart_Buf {
     uint8_t rx_buf[MAX_UART_RX_SIZE];		  	//串口接收buf
@@ -137,13 +154,6 @@ extern int differential_speed;
 extern struct Uart_Buf left_uart_buf;
 extern struct Uart_Buf right_uart_buf;
 
-extern struct Uart_Buf com485_uart_buf;
-extern struct Driver_Run_Status left_driver_status;//左边驱动器状态
-extern struct Driver_Run_Status right_driver_status;//右边驱动器状态
-
 void com485_uart_pre_isr(void);
 void run_control(void);
-
-void PrepareAFrame_XiaoZhuo(uint8_t *pFrame, char ID, char command, int data);  //
-void USART2_RS485_SendCommand(char *pBuffer, int len);
 #endif

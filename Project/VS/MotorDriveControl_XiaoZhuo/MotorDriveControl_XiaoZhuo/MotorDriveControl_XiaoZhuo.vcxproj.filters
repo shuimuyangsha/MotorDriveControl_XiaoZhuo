@@ -168,17 +168,11 @@
     <ClCompile Include="..\..\..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_crc.c">
       <Filter>Source files\Drivers\STM32F1xx_HAL_Driver</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Src\uc_probeDebug.c">
-      <Filter>Source files\Application\User</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Src\mc_api.c">
-      <Filter>Source files\Application\User</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Src\mc_interface.c">
-      <Filter>Source files\Application\User</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\MDK-ARM\startup_stm32f103xb.s">
       <Filter>Source files\Application\MDK-ARM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Src\crc_check.c">
+      <Filter>Source files\Application\User</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -476,9 +470,6 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Src\mc_interface.h">
-      <Filter>Header files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Src\mc_type.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

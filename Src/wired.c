@@ -2,6 +2,7 @@
 #include "sfr.h"
 #include "isr.h"
 #include "common.h"
+#include "crc_check.h"
 
 int left_rpm;	//左边电机期望转速
 int right_rpm;	//右边电机期望转速
@@ -17,8 +18,6 @@ static uint8_t tx_index =0;//标志位指示数据发送给哪个ID的驱动器
 struct Uart_Buf com485_uart_buf;
 struct Driver_Run_Status left_driver_status;//左边驱动器状态
 struct Driver_Run_Status right_driver_status;//右边驱动器状态
-
-
 
 /****************************************************************************
  *
@@ -66,86 +65,91 @@ void com485_rx_data_parse(void)
  ***************************************************************************/
 void com485_uart_pre_isr(void)
 {
-	uint64_t time = sys_time;
+    uint64_t time = sys_time;
 	uint8_t data;
-
-	if (COM485_UART->SR & (UART_FLAG_NE | UART_FLAG_PE | UART_FLAG_FE | UART_FLAG_ORE))    //（噪声错误标志 | 校验错误 | 帧错误 | 过载错误）
-	{   //遇到帧错误等情况时，需要先将数据寄存器的数据读出来，否则无法清除中断标志位
-		com485_uart_buf.dump_data = COM485_UART->SR;
-		COM485_UART->SR = 0;
-		com485_uart_buf.dump_data = COM485_UART->DR;
+	
+	if(COM485_UART->SR & (UART_FLAG_NE |UART_FLAG_PE |UART_FLAG_FE | UART_FLAG_ORE))    //（噪声错误标志 | 校验错误 | 帧错误 | 过载错误）
+    {   //遇到帧错误等情况时，需要先将数据寄存器的数据读出来，否则无法清除中断标志位
+        com485_uart_buf.dump_data = COM485_UART->SR;
+		COM485_UART->SR =0;
+        com485_uart_buf.dump_data = COM485_UART->DR;
 		//return;
-	}
+    }
+	
+    if(COM485_UART->SR & UART_FLAG_RXNE)  //串口接收中断标志位置位
+    {
+        if(time - com485_uart_buf.rx_time > UART_RX_BYTE_TIMEOUT)
+        {
+            com485_uart_buf.rx_counter =0;
+        }
 
-	if (COM485_UART->SR & UART_FLAG_RXNE)  //串口接收中断标志位置位
-	{
-		if (time - com485_uart_buf.rx_time > UART_RX_BYTE_TIMEOUT)
-		{
-			com485_uart_buf.rx_counter = 0;
-		}
+        com485_uart_buf.rx_time = time;
 
-		com485_uart_buf.rx_time = time;
-
-		if (com485_uart_buf.rx_counter < UART_UPLINK_DATA_LENGTH)
-		{
+        if(com485_uart_buf.rx_counter < UART_UPLINK_DATA_LENGTH)
+        {
 			data = COM485_UART->DR;
-			com485_uart_buf.rx_buf[com485_uart_buf.rx_counter++] = data;
-			if (com485_uart_buf.rx_counter == 1)//检查第一个收到的数据对应的ID是否为1或者2，若ID不匹配，则重新接收数据
+            com485_uart_buf.rx_buf[com485_uart_buf.rx_counter++] = data;
+			if(com485_uart_buf.rx_counter == 1)//检查第一个收到的数据对应的ID是否为1或者2，若ID不匹配，则重新接收数据
 			{
-				if ((data != 1) && (data != 2))
+				if((data !=1)&&(data != 2))
 				{
-					com485_uart_buf.rx_counter = 0;
+					com485_uart_buf.rx_counter =0;
 				}
 			}
-			if (com485_uart_buf.rx_counter == UART_UPLINK_DATA_LENGTH)
-			{
-				if (check_data_ingtegrity(com485_uart_buf.rx_buf, UART_UPLINK_DATA_LENGTH))  //若和校验通过，则反转标志位，以便在主循环debug_task中解析上位机发送的数据
-				{
-					//com485_uart_buf.rx_data_update_flag ^= 0x01;	//反转标志位
+            if(com485_uart_buf.rx_counter == UART_UPLINK_DATA_LENGTH)
+            {
+                if(check_data_ingtegrity(com485_uart_buf.rx_buf, UART_UPLINK_DATA_LENGTH))  //若和校验通过，则反转标志位，以便在主循环debug_task中解析上位机发送的数据
+                {
+                    //com485_uart_buf.rx_data_update_flag ^= 0x01;	//反转标志位
 					com485_rx_data_parse();//对接收的数据进行解析
-				}
+                }
 
-			}
-		}
-		else
-		{
-			com485_uart_buf.dump_data = COM485_UART->DR;
-		}
-	}
+            }
+        }
+        else
+        {
+            com485_uart_buf.dump_data = COM485_UART->DR;
+        }
+
+
+    }
 	//往数据寄存器写入最后一个字节数据后才使能发送完成中断，故进入发送完成中断时，表示所有数据已经发送完毕，可以关闭485发送功能
-	if (COM485_UART->CR1 & UART_IT_TC)
+	if(COM485_UART->CR1 & UART_IT_TC)
 	{
 		COM485_UART->SR &= (~UART_FLAG_TC);
 		COM485_UART->CR1 &= (~UART_IT_TC);
 		Disable485TX();//
 	}
+	
+    if(COM485_UART->CR1 & UART_IT_TXE)  //串口发送中断标志位置位
+    {
+        if(com485_uart_buf.tx_counter < UART_DOWNLINK_DATA_LENGTH)
+        {
+            if(COM485_UART->SR & UART_FLAG_TXE)
+            {
 
-	if (COM485_UART->CR1 & UART_IT_TXE)  //串口发送中断标志位置位
-	{
-		if (com485_uart_buf.tx_counter < UART_DOWNLINK_DATA_LENGTH)
-		{
-			if (COM485_UART->SR & UART_FLAG_TXE)
-			{
+                COM485_UART->DR = com485_uart_buf.tx_buf[com485_uart_buf.tx_counter++];
 
-				COM485_UART->DR = com485_uart_buf.tx_buf[com485_uart_buf.tx_counter++];
-
-			}
-			if (com485_uart_buf.tx_counter == UART_DOWNLINK_DATA_LENGTH)
+            }
+			if(com485_uart_buf.tx_counter == UART_DOWNLINK_DATA_LENGTH)
 			{
 				COM485_UART->CR1 &= (~UART_IT_TXE);
-				if (!sync_control_flag)
+				if(!sync_control_flag)
 				{
 					COM485_UART->SR &= (~UART_FLAG_TC);
 					//发送所有数据后，要使能发送完成中断，等待所有数据发送完成了才能关闭485发送功能，否则会导致最后一个字节的数据发送不完整
 					COM485_UART->CR1 |= (UART_IT_TC);
 				}
+				
 			}
-		}
-	}
+        }
+
+    }
+	
+	
+    
+
 }
-
-
-
 
 /****************************************************************************
  *
@@ -161,6 +165,8 @@ void run_control(void)
 {
 	
 	uint8_t *buf = com485_uart_buf.tx_buf;
+	uint16_t crc_result;
+	
 	static uint32_t tx_time =0;
 	if(sys_time -tx_time < 10)//每隔10毫秒发送一次数据
 	{
@@ -168,7 +174,6 @@ void run_control(void)
 	}
 	tx_time = sys_time;
 	Enable485TX() ;//使能485发送
-
 	if(left_rpm == right_rpm)//如果左右两个电机速度相同，可使用广播通信的方式发送命令
 	{
 		sync_control_flag = 1;
@@ -178,7 +183,7 @@ void run_control(void)
 		buf[UART_DOWN_DATA1] = left_rpm&0xff;
 		buf[UART_DOWN_DATA2] = (left_rpm>>8)&0xff;
 		
-		buf[UART_DOWN_SUM] = buf[UART_DOWN_ID] + buf[UART_DOWN_CMD] + buf[UART_DOWN_DATA1]+buf[UART_DOWN_DATA2];
+		//buf[UART_DOWN_SUM] = buf[UART_DOWN_ID] + buf[UART_DOWN_CMD] + buf[UART_DOWN_DATA1]+buf[UART_DOWN_DATA2];
 	}
 	else
 	{
@@ -188,10 +193,10 @@ void run_control(void)
 		{
 			buf[UART_DOWN_ID] = 1;						//为1表示左边驱动器
 			buf[UART_DOWN_CMD] = DRIVER_CMD_SPEED;		//速度控制命令
-			buf[UART_DOWN_DATA1] = left_rpm&0xf0;
+			buf[UART_DOWN_DATA1] = left_rpm&0xff;
 			buf[UART_DOWN_DATA2] = (left_rpm>>8)&0xff;
 			
-			buf[UART_DOWN_SUM] = buf[UART_DOWN_ID] + buf[UART_DOWN_CMD] + buf[UART_DOWN_DATA1]+buf[UART_DOWN_DATA2];
+			//buf[UART_DOWN_SUM] = buf[UART_DOWN_ID] + buf[UART_DOWN_CMD] + buf[UART_DOWN_DATA1]+buf[UART_DOWN_DATA2];
 		}
 		else
 		{
@@ -200,62 +205,16 @@ void run_control(void)
 			buf[UART_DOWN_DATA1] = right_rpm&0xff;
 			buf[UART_DOWN_DATA2] = (right_rpm>>8)&0xff;
 			
-			buf[UART_DOWN_SUM] = buf[UART_DOWN_ID] + buf[UART_DOWN_CMD] + buf[UART_DOWN_DATA1]+buf[UART_DOWN_DATA2];
+			//buf[UART_DOWN_SUM] = buf[UART_DOWN_ID] + buf[UART_DOWN_CMD] + buf[UART_DOWN_DATA1]+buf[UART_DOWN_DATA2];
 		}
+		
 		tx_index ^= 0x01;
 	}
+	crc_result = crc16(buf, UART_DOWNLINK_DATA_LENGTH-2);
+	buf[UART_DOWN_CRC_L] = crc_result&0xff;
+	buf[UART_DOWN_CRC_H] = (crc_result>>8)&0xff;
+		
 	com485_uart_buf.tx_counter =0;
 	COM485_UART->CR1 |= UART_IT_TXE;//启动串口数据发送
 }
-
-
-
-
-
-
-
-/*数据帧打包，准备一个数据帧*/
-//
-void PrepareAFrame_XiaoZhuo(uint8_t *pFrame, char ID, char command, int data)  //
-{
-	// prepare frames to control/read from motors
-	uint8_t SUM_Result = 0;
-
-	pFrame[0] = ID;
-	pFrame[1] = command;
-	pFrame[2] = (int)(data & 0xff); //
-	pFrame[3] = (int)(data & 0xff00) >> 8;  //
-
-	SUM_Result = pFrame[0] + pFrame[1] + pFrame[2] + pFrame[3];
-
-	pFrame[4] = SUM_Result;
-
-	//buf[UART_DOWN_ID] = 0;						//为0表示两个驱动器都会接收
-	//buf[UART_DOWN_CMD] = DRIVER_CMD_SPEED;
-	//buf[UART_DOWN_DATA1] = left_rpm & 0xff;
-	//buf[UART_DOWN_DATA2] = (left_rpm >> 8) & 0xff;
-
-	//buf[UART_DOWN_SUM] = buf[UART_DOWN_ID] + buf[UART_DOWN_CMD] + buf[UART_DOWN_DATA1] + buf[UART_DOWN_DATA2];
-}
-
-void USART2_RS485_SendCommand(char *pBuffer, int len)
-{
-	//int i = 0;
-	//EnableUSART3_RS485_Send();
-	//while (USART_GetFlagStatus(USART3, USART_FLAG_TC) == RESET);
-	//for (i = 0; i < len; ++i)
-	//{
-	//	USART_SendData(USART3, pBuffer[i]);
-	//	while (USART_GetFlagStatus(USART3, USART_FLAG_TC) == RESET);
-	//}
-	//DisableUSART3_RS485_Send();
-
-	Enable485TX();//使能485发送
-
-	com485_uart_buf.tx_counter = 0;
-	COM485_UART->CR1 |= UART_IT_TXE;//启动串口数据发送
-}
-
-
-
 

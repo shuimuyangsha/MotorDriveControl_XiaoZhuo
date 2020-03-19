@@ -45,6 +45,9 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 
+*.o
+*.d
+*.crf
 *_i.c
 *_p.c
 *_i.h
@@ -184,12 +187,6 @@ _pkginfo.txt
 !*.[Cc]ache/
 
 # Others
-
-*.o
-*.crf
-*.d
-
-
 ClientBin/
 ~$*
 *~

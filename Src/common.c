@@ -26,7 +26,7 @@
 #include <math.h>
 //#include "sensor.h"
 #include "wired.h"
-
+#include "crc_check.h"
 
 //∂‘”¶10^0 ~ 10^9
 const int32_t digit32[10] =
@@ -267,15 +267,11 @@ uint8_t hysteresis_comparator(int32_t new_value, struct Hysteresis_Comparator *c
  ***************************************************************************/
 bool check_data_ingtegrity(uint8_t *data, uint8_t len)
 {
-    uint8_t i;
-    uint8_t result=0;
 
-    for(i =0; i< len-1; ++i)
-    {
-        result += data[i];
-    }
+    uint16_t result=0;
 
-    if(result != data[len-1])
+    result = crc16(data, len-2);
+    if(result != ((data[len-1]<<8)|data[len-2]))
     {
         return false;
     }
